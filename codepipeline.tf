@@ -66,7 +66,7 @@ resource "aws_codepipeline" "codepipeline" {
       version          = "1"
 
       configuration = {
-        ProjectName = module.codebuild_project_test.id
+        ProjectName = module.codebuild_project_test.codebuild_project_name
       }
     }
   }
@@ -84,7 +84,7 @@ resource "aws_codepipeline" "codepipeline" {
       version          = "1"
 
       configuration = {
-        ProjectName = module.codebuild_project_build.id
+        ProjectName = module.codebuild_project_build.codebuild_project_name
       }
     }
   }

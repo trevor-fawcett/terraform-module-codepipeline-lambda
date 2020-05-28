@@ -8,7 +8,7 @@ variable "repo_name" {
   default     = ""
 }
 
-variable "codebuild_purpose" {
+variable "codepipeline_stage" {
   description = "The purpose of this CodeBuild project (e.g. test)"
   default = ""
 }
