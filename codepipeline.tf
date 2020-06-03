@@ -88,4 +88,38 @@ resource "aws_codepipeline" "codepipeline" {
       }
     }
   }
+
+  stage {
+    name = "Approve"
+
+    action {
+      name          = "Approve"
+      category      = "Approval"
+      owner         = "AWS"
+      provider      = "Manual"
+      version       = "1"
+
+      configuration = {
+        CustomData = "${var.repo_name} has been tested and packaged - ready to deploy."
+      }
+    }
+  }
+
+  stage {
+    name = "Deploy"
+
+    action {
+      name             = "Deploy"
+      category         = "Deploy"
+      owner            = "AWS"
+      provider         = "CodeDeploy"
+      input_artifacts  = ["packaged"]
+      version          = "1"
+
+      configuration = {
+        ApplicationName     = aws_codedeploy_app.codedeploy_application.name
+        DeploymentGroupName = aws_codedeploy_deployment_group.codedeploy_deployment_group.deployment_group_name
+      }
+    }
+  }
 }

@@ -6,7 +6,6 @@ locals {
   unique_name = "${var.repo_name}-${var.codepipeline_stage}"
 }
 
-# CodeBuild IAM Permissions
 data "template_file" "codebuild_assume_role_policy_template" {
   template = file("${path.module}/policies/codebuild_assume_role.tpl")
 }
@@ -31,7 +30,6 @@ resource "aws_iam_role_policy" "codebuild_policy" {
   policy = data.template_file.codebuild_policy_template.rendered
 }
 
-# CodeBuild Project
 resource "aws_codebuild_project" "codebuild_project" {
   name           = local.unique_name
   description    = "The CodeBuild project for ${var.repo_name} (${var.codepipeline_stage})"
