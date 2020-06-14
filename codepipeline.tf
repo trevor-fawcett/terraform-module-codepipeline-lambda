@@ -84,7 +84,7 @@ resource "aws_codepipeline" "codepipeline" {
       version          = "1"
 
       configuration = {
-        ProjectName = module.codebuild_project_build.codebuild_project_name
+        ProjectName = module.codebuild_project_package.codebuild_project_name
       }
     }
   }
@@ -109,17 +109,34 @@ resource "aws_codepipeline" "codepipeline" {
     name = "Deploy"
 
     action {
-      name             = "Deploy"
-      category         = "Deploy"
-      owner            = "AWS"
-      provider         = "CodeDeploy"
-      input_artifacts  = ["packaged"]
-      version          = "1"
+      name            = "Deploy"
+      category        = "Deploy"
+      owner           = "AWS"
+      provider        = "CodeBuild"
+      input_artifacts = ["packaged"]
+      version         = "1"
 
       configuration = {
-        ApplicationName     = aws_codedeploy_app.codedeploy_application.name
-        DeploymentGroupName = aws_codedeploy_deployment_group.codedeploy_deployment_group.deployment_group_name
+        ProjectName = module.codebuild_project_deploy.codebuild_project_name
       }
     }
   }
+
+  # stage {
+  #   name = "Deploy"
+
+  #   action {
+  #     name             = "Deploy"
+  #     category         = "Deploy"
+  #     owner            = "AWS"
+  #     provider         = "CodeDeploy"
+  #     input_artifacts  = ["packaged"]
+  #     version          = "1"
+
+  #     configuration = {
+  #       ApplicationName     = aws_codedeploy_app.codedeploy_application.name
+  #       DeploymentGroupName = aws_codedeploy_deployment_group.codedeploy_deployment_group.deployment_group_name
+  #     }
+  #   }
+  # }
 }

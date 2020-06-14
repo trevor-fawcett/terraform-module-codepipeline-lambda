@@ -43,7 +43,12 @@ variable "buildspec_test_file" {
   default = "buildspec_test.yml"
 }
 
-variable "buildspec_build_file" {
-  description = "The build spec file for the build (default: buildspec.yml)"
-  default = "buildspec.yml"
+variable "buildspec_package_file" {
+  description = "The build spec file for the build and package (default: buildspec_package.yml)"
+  default = "buildspec_package.yml"
+}
+
+variable "buildspec_deploy_file" {
+  description = "The build spec file for the deploy (default: buildspec_deploy.yml)"
+  default = "buildspec_deploy.yml"
 }
