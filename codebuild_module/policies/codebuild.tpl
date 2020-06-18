@@ -46,6 +46,19 @@
         "${aws_kms_key}"
       ],
       "Effect": "Allow"
+    },
+    {
+      "Action": [
+        "codedeploy:CreateDeployment",
+        "codedeploy:RegisterApplicationRevision",
+        "codedeploy:GetDeploymentConfig"
+      ],
+      "Resource": [
+        "arn:aws:codedeploy:*:*:application:*",
+        "arn:aws:codedeploy:*:*:deploymentgroup:*/*",
+        "arn:aws:codedeploy:*:*:deploymentconfig:*"
+      ],
+      "Effect": "Allow"
     }
   ]
 }
